@@ -3,27 +3,27 @@ let apiKey = "19aba77488f9a02ca43908106ded65bb";
 let searchBtn = $(".searchBtn");
 let searchInput = $(".searchInput");
 
-// column locations -left
-let cityNameEl = $(".cityName");
-let currentDateEl = $(".currentDate");
-let weatherIconEl = $(".weatherIcon");
-let searchHistoryEl = $(".historyItems");
-
 // column locations -right
 let tempEl = $(".temp");
 let humidityEl = $(".humidity");
 let windSpeedEl = $(".windSpeed");
 let uvIndexEl = $(".uvIndex");
 let cardRow = $(".card-row");
+// column locations -left
+let cityNameEl = $(".cityName");
+let currentDateEl = $(".currentDate");
+let weatherIconEl = $(".weatherIcon");
+let searchHistoryEl = $(".historyItems");
 
-// Create a current date variable
+
+// current data variable
 var today = new Date();
-let dd = String(today.getDate()).padStart(2, '0');
-let mm = String(today.getMonth() + 1).padStart(2, '0');
-let yyyy = today.getFullYear();
-var today = mm + '/' + dd + '/' + yyyy;
+let DD = String(today.getDate()).padStart(2, '0');
+let MM = String(today.getMonth() + 1).padStart(2, '0');
+let YYYY = today.getFullYear();
+var today = MM + '/' + DD + '/' + YYYY;
 
-// Save to local storage
+// Save to local storage//
 
 if (JSON.parse(localStorage.getItem("searchHistory")) === null) {
     console.log("searchHistory not found")
@@ -42,7 +42,7 @@ searchBtn.on("click", function(e) {
     console.log("clicked button")
     getWeather(searchInput.val());
 });
-
+// search history
 $(document).on("click", ".historyEntry", function() {
     console.log("clicked history item")
     let thisElement = $(this);
@@ -53,13 +53,12 @@ function renderSearchHistory(cityName) {
     searchHistoryEl.empty();
     let searchHistoryArr = JSON.parse(localStorage.getItem("searchHistory"));
     for (let i = 0; i < searchHistoryArr.length; i++) {
-        // We put newListItem in loop because otherwise the text of the li element changes, rather than making a new element for each array index
         let newListItem = $("<li>").attr("class", "historyEntry");
         newListItem.text(searchHistoryArr[i]);
         searchHistoryEl.prepend(newListItem);
     }
 }
-
+//need to write a function to render the weather data//
 function renderWeatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeatherIcon, uvVal) {
     cityNameEl.text(cityName)
     currentDateEl.text(`(${today})`)
@@ -150,10 +149,10 @@ function getWeather(desiredCity) {
         })
     }   
 }
-
+// this is the 5-day forecast card
 function createForecastCard(date, icon, temp, humidity) {
 
-    // HTML elements we will create to later
+    //forecast card day data
     let fiveDayCardEl = $("<div>").attr("class", "five-day-card");
     let cardDate = $("<h3>").attr("class", "card-text");
     let cardIcon = $("<img>").attr("class", "weatherIcon");
